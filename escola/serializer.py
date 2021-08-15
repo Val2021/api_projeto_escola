@@ -1,12 +1,10 @@
-from django.db import models
-from django.db.models import fields
-from escola.models import Aluno, Curso, Matricula
 from rest_framework import serializers
+from escola.models import Aluno, Curso, Matricula
 
 class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno
-        fields = ['id', 'nome','cpf','data_nascimento']
+        fields = ['id', 'nome', 'rg', 'cpf', 'data_nascimento']
 
 class CursoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,13 +17,12 @@ class MatriculaSerializer(serializers.ModelSerializer):
         exclude = []
 
 class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
-    curso = serializers.ReadOnlyField(source = 'curso.descricao')
+    curso = serializers.ReadOnlyField(source='curso.descricao')
     periodo = serializers.SerializerMethodField()
     class Meta:
         model = Matricula
-        fields = ['curso','periodo']
-
-    def get_periodo(self,obj):
+        fields = ['curso', 'periodo']
+    def get_periodo(self, obj):
         return obj.get_periodo_display()
 
 class ListaAlunosMatriculadosSerializer(serializers.ModelSerializer):
