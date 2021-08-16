@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'escola',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,19 +123,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-REST_FRAMEWORK = {'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
-'DEFAULT_PERMISSION_CLASSES':[
-    'rest_framework.permissions.IsAuthenticated',
-    'rest_framework.permissions.DjangoModelPermissions',
-],
-'DEFAULT_AUTHENTICATION_CLASSES':[
-    'rest_framework.authentication.BasicAuthentication',
+REST_FRAMEWORK = {
+# 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+# 'DEFAULT_PERMISSION_CLASSES':[
+#     'rest_framework.permissions.IsAuthenticated',
+#     'rest_framework.permissions.DjangoModelPermissions',
+# ],
+# 'DEFAULT_AUTHENTICATION_CLASSES':[
+#     'rest_framework.authentication.BasicAuthentication',
 
-],
-'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-],
-'DEFAULT_THROTTLE_RATES': {
-    'anon': '5/day',
-    }
+# # ],
+# 'DEFAULT_THROTTLE_CLASSES': [
+#         'rest_framework.throttling.AnonRateThrottle',
+# ]
+# 'DEFAULT_THROTTLE_RATES': {
+#     'anon': '5/day',
+#     }
+# }
 }
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
